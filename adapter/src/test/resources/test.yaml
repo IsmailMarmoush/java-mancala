@@ -1,0 +1,6 @@
+projectName: bank
+nodeControllerPath: /nodes
+list:
+  - hi
+  - hello
+  - bye

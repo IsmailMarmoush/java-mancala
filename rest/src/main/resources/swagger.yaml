@@ -1,0 +1,89 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Kalah Service
+  contact:
+    url: 'https://marmoush.com'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  termsOfService: https://marmoush.com/
+servers:
+  - url: http://localhost:8080/
+paths:
+  /games:
+    post:
+      description: Creates a new game
+      responses:
+        '201':
+          description: Game Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /games/{gameId}/pits/pitId:
+    put:
+      description: plays a new move
+      parameters:
+        - name: gameId
+          in: path
+          required: true
+          description: The id of the game
+          schema:
+            type: string
+
+        - name: pitId
+          in: path
+          required: true
+          description: The id of the pit to move
+          schema:
+            type: string
+      responses:
+        '200':
+          description: move played
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameMove'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                type: string
+                example:
+                  Wrong index
+
+components:
+  schemas:
+    Game:
+      required:
+        - id
+        - url
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+
+    GameMove:
+      required:
+        - id
+        - url
+        - status
+      properties:
+        idx:
+          type: string
+        value:
+          type: string
+        status:
+          type: array
+
+
